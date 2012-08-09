@@ -31,6 +31,7 @@ Syntax for in model definition is:
 
 
 Migrating the database can be done by two ways:
-    1. Using South for your apps
-    2. Using sync_translatable_fields managemend command from this app to all
-    models that are in third party application
+
+1. Using South for your apps
+2. Using sync_translatable_fields managemend command from this app to all
+models that are in third party application
