@@ -38,7 +38,7 @@ Migrating the database can be done by two ways\:
    models that are in third party application
 
 
-For everything to work you must set USE_I18N = True in your settings
+For everything to work you must set **USE_I18N = True** in your settings
 
 
 If you use Mezzanine
