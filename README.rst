@@ -1,7 +1,8 @@
 django-magic-translation
 ========================
 
-Another application that try to make django translatable to different langues easier.
+Another application that try to make django translatable to different
+languages easier.
 
 When this application is imported then it will attach a handler to
 class_prepared signal. Then handler mark models as translatable
@@ -12,7 +13,7 @@ for translation
 Describing in settings.py is for models that can not be touched
 (from system installed app), but we want to have translatable feature.
 
-Syntax for that is:
+Syntax for that is::
 
     TRANSLATABLE_MODELS = (
         ('app_label.module_name': ('field1', 'field2', 'field3')),
@@ -20,7 +21,7 @@ Syntax for that is:
     )
 
 
-Syntax for in model definition is:
+Syntax for in model definition is::
 
     class MyModel(models.Model):
         field1 = models.SomeField()
@@ -30,11 +31,11 @@ Syntax for in model definition is:
         translatable_fields = ('field1', 'field2', 'field3')
 
 
-Migrating the database can be done by two ways:
+Migrating the database can be done by two ways\:
 
 1. Using South for your apps
 2. Using sync_translatable_fields managemend command from this app to all
-models that are in third party application
+   models that are in third party application
 
 
 For everything to work you must set USE_I18N = True in your settings
@@ -43,7 +44,7 @@ For everything to work you must set USE_I18N = True in your settings
 If you use Mezzanine
 ====================
 
-You must add this to your settings
+You must add this to your settings::
 
     TRANSLATABLE_MODELS = (
         ('core.Displayable', ['title', '_meta_title', 'description']),
