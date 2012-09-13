@@ -38,3 +38,19 @@ models that are in third party application
 
 
 For everything to work you must set USE_I18N = True in your settings
+
+
+If you use Mezzanine
+====================
+
+You must add this to your settings
+
+    TRANSLATABLE_MODELS = (
+        ('core.Displayable', ['title', '_meta_title', 'description']),
+        ('core.RichText', ['content']),
+    )
+
+    NOT_LOCALIZED_URLS = (
+        '/edit',
+        '/sitemap.xml',
+    )
