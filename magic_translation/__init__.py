@@ -22,6 +22,8 @@ Syntax for in model definition is:
         field3 = models.SomeField()
 
         translatable_fields = ('field1', 'field2', 'field3')
+
+For everything to work you must set USE_I18N = True in your settings
 """
 from django.conf import settings
 from django.db.models.signals import class_prepared
@@ -171,4 +173,5 @@ def translate_prepared_models(sender, **kwargs):
             continue
         make_model_translatable(model)
 
-class_prepared.connect(translate_prepared_models, dispatch_uid="tr@ns#mod3ls")
+if settings.USE_I18N:
+    class_prepared.connect(translate_prepared_models, dispatch_uid="tr@ns#mod3ls")

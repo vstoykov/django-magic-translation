@@ -2,6 +2,7 @@
 Locale middleware for django-magic-translation
 """
 from django.conf import settings
+from django.core.exceptions import MiddlewareNotUsed
 from django.utils import translation
 from django.utils.cache import patch_vary_headers
 from django.shortcuts import redirect
@@ -42,6 +43,10 @@ class LocaleMiddleware(object):
     Simple middleware that overwrites functionality
     of default Django Locale Middleware
     """
+    def __init__(self):
+        if not settings.USE_I18N:
+            raise MiddlewareNotUsed
+
     def process_request(self, request):
         language = get_language_from_request(request)
         must_localize = must_localize_path(request.path_info)
