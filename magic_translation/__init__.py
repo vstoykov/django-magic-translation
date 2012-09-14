@@ -31,7 +31,7 @@ from django.db.models.fields import NOT_PROVIDED, FieldDoesNotExist
 from django.utils.encoding import force_unicode
 from django.utils import translation
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 FIELD_ATTRIBUTES = ['verbose_name', 'help_text', 'choices', 'max_length', 'default', 'blank', 'null']
 AVAILABLE_LANGUAGES = [code for code, name in settings.LANGUAGES]
