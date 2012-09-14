@@ -12,7 +12,6 @@ Credits: Heavily inspired by django-transmeta's sync_transmeta_db command.
 from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
-from django.core.management.color import no_style
 from django.conf import settings
 from django.db import connections, DEFAULT_DB_ALIAS, transaction
 from django.db.models.loading import get_models
@@ -63,14 +62,13 @@ class Command(NoArgsCommand):
         """
         opts = model._meta
         field = opts.get_field(field_name)
-        style = no_style()
         qn = self.connection.ops.quote_name
         col_type = field.db_type(self.connection)
 
-        field_output = [style.SQL_FIELD(qn(field.column)),
-                     style.SQL_COLTYPE(col_type)]
+        field_output = [qn(field.column), col_type]
         if not field.null:
-                field_output.append(style.SQL_KEYWORD('NOT NULL'))
+            field_output.append('NOT NULL')
+            field_output.append('DEFAULT %s' % qn(field.default))
 
         sql_output = "ALTER TABLE %s ADD COLUMN %s;" % (
                     qn(opts.db_table), ' '.join(field_output))
