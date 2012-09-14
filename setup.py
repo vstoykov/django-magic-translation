@@ -11,7 +11,7 @@ setup(
     author_email="vkstoykov@gmail.com",
     description="Another application that try to make Django Framework translatable"
                 " to different langues easier.",
-    long_description=open("README.md").read(),
+    long_description=open("README.rst").read(),
     url="https://github.com/vstoykov/django-magic-translation",
     zip_safe=False,
     include_package_data=True,
