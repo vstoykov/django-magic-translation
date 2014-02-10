@@ -32,6 +32,7 @@ from django.db.models.fields import NOT_PROVIDED, FieldDoesNotExist
 from django.utils import translation
 
 __version__ = '0.1.1'
+__all__ = ['localize_field', 'get_translatable_fields_names', 'make_model_translatable']
 
 FIELD_ATTRIBUTES = [
     'verbose_name', 'help_text', 'choices',
