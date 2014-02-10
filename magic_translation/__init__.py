@@ -57,37 +57,49 @@ class LocalizedFieldDescriptor(object):
 
     """
     def __init__(self, language=None):
-        self.language = language
+        self._language = language
 
     def __get__(self, instance, owner):
         if not instance:
             return self
-        val = instance.__dict__.get(self._get_field_name())
+        val = instance.__dict__.get(self.localized_field_name)
         return val or instance.__dict__.get(self.field_name)
 
     def __set__(self, instance, val):
-        if self._is_default() and not val:
+        if self.is_default and not val:
             val = getattr(instance, self.field_name)
-        instance.__dict__[self._get_field_name()] = val
-        if self._is_main():
+        instance.__dict__[self.localized_field_name] = val
+        if self.is_main:
             instance.__dict__[self.field_name] = val
 
-    def _get_field_name(self):
-        return "%s_%s" % (self.field_name, self._get_language())
+    @property
+    def language(self):
+        return self._language or get_language()
 
-    def _get_language(self):
-        return self.language or get_language()
+    @property
+    def localized_field_name(self):
+        return "%s_%s" % (self.field_name, self.language)
 
-    def _is_main(self):
-        return not bool(self.language)
+    @property
+    def is_main(self):
+        return not bool(self._language)
 
-    def _is_default(self):
-        return self.language == get_language()
+    @property
+    def is_default(self):
+        return self._language == get_language()
 
     def contribute_to_class(self, cls, name):
         self.model = cls
-        self.field_name = name
-        setattr(cls, name, self)
+
+        if self._language is None:
+            self.field_name = attr_name = name
+        else:
+            if name.endswith('_%s' % self._language):
+                name = name[:-(len(self._language) + 1)]
+            self.field_name = name
+            attr_name = "%s_%s" % (name, self._language)
+
+        setattr(cls, attr_name, self)
 
 
 def localize_field(field):
@@ -126,7 +138,8 @@ def localize_field(field):
         # Add the new field into the model
         new_field.contribute_to_class(model, new_field_name)
 
-        model.add_to_class(field.name, LocalizedFieldDescriptor(lang_code))
+        # Add Localized descriptor for the new localized field
+        model.add_to_class(new_field_name, LocalizedFieldDescriptor(lang_code))
 
     # Add magic descriptor for the original field name
     model.add_to_class(field.name, LocalizedFieldDescriptor())
