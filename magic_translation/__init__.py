@@ -31,7 +31,7 @@ from django.db.models.signals import class_prepared
 from django.db.models.fields import NOT_PROVIDED, FieldDoesNotExist
 from django.utils import translation
 
-__version__ = '0.1.1'
+__version__ = '0.2.0'
 __all__ = ['localize_field', 'get_translatable_fields_names', 'make_model_translatable']
 
 FIELD_ATTRIBUTES = [

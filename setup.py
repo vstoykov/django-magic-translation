@@ -6,7 +6,7 @@ install_requires = [
 
 setup(
     name="django-magic-translation",
-    version='0.1.1',
+    version='0.2.0',
     author="Venelin Stoykov",
     author_email="vkstoykov@gmail.com",
     description="Another application that try to make Django Framework translatable"
